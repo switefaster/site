@@ -1,0 +1,24 @@
+physics:
+  label: Physics
+  permalink: /physics
+  description: Physics related articles
+
+qft:
+  label: QFT
+  permalink: /qft
+  description: Quantum Field Theory related articles
+
+gr:
+  label: General Relativity
+  permalink: /gr
+  description: General Relativity related articles
+
+maths:
+  label: Mathematics
+  permalink: /maths
+  description: Mathematics related articles
+
+computer:
+  label: Computer
+  permalink: /computer
+  description: Computer/Programming related articles
