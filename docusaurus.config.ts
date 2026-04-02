@@ -7,7 +7,7 @@ import rehypeKatex from 'rehype-katex';
 
 const config: Config = {
   title: 'Naked Singularity',
-  tagline: '妄图窥视真理一隅之狂徒',
+  tagline: '狂人摸象',
   favicon: 'img/favicon.ico',
 
   future: {
@@ -77,17 +77,17 @@ const config: Config = {
       respectPrefersColorScheme: true,
     },
     navbar: {
-      title: 'SF\'s Site',
+      title: 'Naked Singularity',
       logo: {
-        alt: 'SF\'s Site',
+        alt: 'Naked Singularity',
         src: 'img/blackhole-128.png',
       },
       items: [
         {
           type: 'docSidebar',
-          sidebarId: 'tutorialSidebar',
+          sidebarId: 'lectureSidebar',
           position: 'left',
-          label: 'Tutorial',
+          label: 'Lectures',
         },
         { to: '/blog', label: 'Blog', position: 'left' },
         {
