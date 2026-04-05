@@ -10,15 +10,12 @@ import styles from './index.module.css';
 function HomepageHeader() {
   const { siteConfig } = useDocusaurusContext();
   return (
-    <header className={clsx('hero hero--primary', styles.heroBanner)}>
+    <header className={clsx(styles.heroBanner)}>
       <div className="container">
-        <Heading as="h1" className="hero__title">
+        <Heading as="h1" className={clsx("hero__title", styles.blackholeFont)}>
           {siteConfig.title}
         </Heading>
-        <p className="hero__subtitle">{siteConfig.tagline}</p>
-        <div className={styles.buttons}>
-
-        </div>
+        <p className={clsx("hero__subtitle", styles.blackholeFont)}>{siteConfig.tagline}</p>
       </div>
     </header>
   );
@@ -29,10 +26,11 @@ export default function Home(): ReactNode {
   return (
     <Layout
       title={`${siteConfig.title}`}
-      description={`${siteConfig.title} - ${siteConfig.tagline}`}>
+      description={`${siteConfig.title} - ${siteConfig.tagline}`}
+      wrapperClassName={clsx(styles.blackhole)}>
       <HomepageHeader />
-      <main>
-      </main>
+      {/* <main>
+      </main> */}
     </Layout>
   );
 }

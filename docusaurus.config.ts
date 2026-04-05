@@ -7,7 +7,7 @@ import rehypeKatex from 'rehype-katex';
 
 const config: Config = {
   title: 'Naked Singularity',
-  tagline: '狂人摸象',
+  tagline: 'Can you hear the music?',
   favicon: 'img/favicon.ico',
 
   future: {
