@@ -90,6 +90,7 @@ const config: Config = {
           label: 'Lectures',
         },
         { to: '/blog', label: 'Blog', position: 'left' },
+        { to: '/friends', label: 'Friends', position: 'right' },
         {
           href: 'https://github.com/switefaster/',
           label: 'GitHub',

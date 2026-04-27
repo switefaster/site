@@ -12,7 +12,7 @@ $$\mathbf{v}=\mathbf{const}$$
 :::
 
 我们在这篇文章中将探讨这句话的真实性。
-<!-- truncate -->
+{/* truncate */}
 
 ![真的吗？](images/is_it_true.jpg)
 
