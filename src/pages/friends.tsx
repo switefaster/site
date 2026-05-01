@@ -56,7 +56,8 @@ export default function Friends(): ReactNode {
     const [positions, setPositions] = useState<{ [key: string]: { x: number; y: number } }>({});
     const [engine, setEngine] = useState<Matter.Engine | null>(null);
     const velocitiesRef = useRef<{ [key: string]: Matter.Vector }>({});
-    const [hovered, setHovered] = useState<string | null>(null);
+    const [selectedFriend, setSelectedFriend] = useState<string | null>(null);
+    const dragStartPosRef = useRef<{ x: number; y: number } | null>(null);
 
     useEffect(() => {
         if (!containerRef.current) return;
@@ -68,7 +69,15 @@ export default function Friends(): ReactNode {
         // Create engine
         const newEngine = Matter.Engine.create();
         newEngine.gravity.y = 0; // No gravity for floating
-
+        // Create mouse constraint for dragging
+        const mouseConstraint = Matter.MouseConstraint.create(newEngine, {
+            mouse: Matter.Mouse.create(containerRef.current),
+            constraint: {
+                stiffness: 0.2,
+                render: { visible: false },
+            },
+        });
+        Matter.World.add(newEngine.world, mouseConstraint);
         // Create walls
         const walls = [
             Matter.Bodies.rectangle(width / 2, -10, width, 20, { isStatic: true, restitution: 1 }),
@@ -99,9 +108,19 @@ export default function Friends(): ReactNode {
         Matter.World.add(newEngine.world, friendBodies);
 
         // Update positions
+        const maxSpeed = 15; // Maximum speed magnitude
         const updatePositions = () => {
             const newPositions: { [key: string]: { x: number; y: number } } = {};
             friendBodies.forEach(body => {
+                // Clamp velocity
+                const speed = Math.sqrt(body.velocity.x ** 2 + body.velocity.y ** 2);
+                if (speed > maxSpeed) {
+                    const scale = maxSpeed / speed;
+                    Matter.Body.setVelocity(body, {
+                        x: body.velocity.x * scale,
+                        y: body.velocity.y * scale,
+                    });
+                }
                 newPositions[body.label] = { x: body.position.x, y: body.position.y };
             });
             setPositions(newPositions);
@@ -126,8 +145,22 @@ export default function Friends(): ReactNode {
         };
     }, []);
 
-    const handleMouseEnter = (name: string) => {
-        setHovered(name);
+    const handleBallClick = (name: string, event: React.MouseEvent) => {
+        // Check if this was a drag or a click
+        if (dragStartPosRef.current) {
+            const moveDistance = Math.sqrt(
+                Math.pow(event.clientX - dragStartPosRef.current.x, 2) +
+                Math.pow(event.clientY - dragStartPosRef.current.y, 2)
+            );
+            // If moved more than 5px, it's a drag, not a click
+            if (moveDistance > 5) {
+                dragStartPosRef.current = null;
+                return;
+            }
+        }
+        dragStartPosRef.current = null;
+
+        setSelectedFriend(name);
         if (engine) {
             const body = Matter.Composite.allBodies(engine.world).find(b => b.label === name);
             if (body) {
@@ -137,13 +170,18 @@ export default function Friends(): ReactNode {
         }
     };
 
-    const handleMouseLeave = (name: string) => {
-        setHovered(null);
-        if (engine) {
-            const body = Matter.Composite.allBodies(engine.world).find(b => b.label === name);
+    const handleBallMouseDown = (event: React.MouseEvent) => {
+        dragStartPosRef.current = { x: event.clientX, y: event.clientY };
+    };
+
+    const closePopup = () => {
+        const friendName = selectedFriend;
+        setSelectedFriend(null);
+        if (friendName && engine) {
+            const body = Matter.Composite.allBodies(engine.world).find(b => b.label === friendName);
             if (body) {
                 Matter.Body.setStatic(body, false);
-                const vel = velocitiesRef.current[name];
+                const vel = velocitiesRef.current[friendName];
                 if (vel) {
                     Matter.Body.setVelocity(body, vel);
                 }
@@ -157,6 +195,7 @@ export default function Friends(): ReactNode {
             description={`${siteConfig.title} - ${siteConfig.tagline}`}>
             <div
                 ref={containerRef}
+                onClick={closePopup}
                 style={{
                     position: 'relative',
                     width: '100%',
@@ -167,79 +206,73 @@ export default function Friends(): ReactNode {
             >
                 {friends.map((friend) => {
                     const pos = positions[friend.name] || { x: 0, y: 0 };
-                    const commonStyles = {
-                        position: 'absolute' as const,
-                        left: pos.x - 50,
-                        top: pos.y - 50,
-                        width: 100,
-                        height: 100,
-                        borderRadius: '50%',
-                        backgroundImage: `url(${friend.avatar})`,
-                        backgroundSize: 'cover' as const,
-                        backgroundPosition: 'center' as const,
-                        transition: 'transform 0.2s',
-                        transform: hovered === friend.name ? 'scale(1.1)' : 'scale(1)',
-                        display: 'block',
-                        textDecoration: 'none',
-                        cursor: friend.homepage ? 'pointer' : 'default',
-                    };
-
-                    const element = friend.homepage ? (
-                        <a
-                            key={friend.name}
-                            href={friend.homepage}
-                            style={commonStyles}
-                            onMouseEnter={() => handleMouseEnter(friend.name)}
-                            onMouseLeave={() => handleMouseLeave(friend.name)}
-                        >
-                            {hovered === friend.name && (
-                                <div
-                                    style={{
-                                        position: 'absolute',
-                                        top: -60,
-                                        left: '50%',
-                                        transform: 'translateX(-50%)',
-                                        backgroundColor: 'white',
-                                        padding: '10px',
-                                        borderRadius: '5px',
-                                        boxShadow: '0 0 10px rgba(0,0,0,0.1)',
-                                        whiteSpace: 'nowrap',
-                                        zIndex: 10,
-                                    }}
-                                >
-                                    <strong>{friend.name}</strong>
-                                </div>
-                            )}
-                        </a>
-                    ) : (
+                    return (
                         <div
                             key={friend.name}
-                            style={commonStyles}
-                            onMouseEnter={() => handleMouseEnter(friend.name)}
-                            onMouseLeave={() => handleMouseLeave(friend.name)}
+                            style={{
+                                position: 'absolute',
+                                left: pos.x - 50,
+                                top: pos.y - 50,
+                                width: 100,
+                                height: 100,
+                                borderRadius: '50%',
+                                backgroundImage: `url(${friend.avatar})`,
+                                backgroundSize: 'cover',
+                                backgroundPosition: 'center',
+                                cursor: 'default',
+                                transition: 'transform 0.2s',
+                                transform: selectedFriend === friend.name ? 'scale(1.1)' : 'scale(1)',
+                            }}
+                            onMouseDown={handleBallMouseDown}
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                handleBallClick(friend.name, e);
+                            }}
                         >
-                            {hovered === friend.name && (
-                                <div
-                                    style={{
-                                        position: 'absolute',
-                                        top: -60,
-                                        left: '50%',
-                                        transform: 'translateX(-50%)',
-                                        backgroundColor: 'white',
-                                        padding: '10px',
-                                        borderRadius: '5px',
-                                        boxShadow: '0 0 10px rgba(0,0,0,0.1)',
-                                        whiteSpace: 'nowrap',
-                                        zIndex: 10,
-                                    }}
-                                >
-                                    <strong>{friend.name}</strong>
-                                </div>
+                            {selectedFriend === friend.name && (
+                                friend.homepage ? (
+                                    <a
+                                        href={friend.homepage}
+                                        onClick={(e) => e.stopPropagation()}
+                                        style={{
+                                            position: 'absolute',
+                                            top: -60,
+                                            left: '50%',
+                                            transform: 'translateX(-50%)',
+                                            backgroundColor: 'white',
+                                            padding: '10px',
+                                            borderRadius: '5px',
+                                            boxShadow: '0 0 10px rgba(0,0,0,0.1)',
+                                            whiteSpace: 'nowrap',
+                                            zIndex: 10,
+                                            textDecoration: 'none',
+                                            color: 'inherit',
+                                            display: 'block',
+                                        }}
+                                    >
+                                        <strong>{friend.name}</strong>
+                                    </a>
+                                ) : (
+                                    <div
+                                        style={{
+                                            position: 'absolute',
+                                            top: -60,
+                                            left: '50%',
+                                            transform: 'translateX(-50%)',
+                                            backgroundColor: 'white',
+                                            padding: '10px',
+                                            borderRadius: '5px',
+                                            boxShadow: '0 0 10px rgba(0,0,0,0.1)',
+                                            whiteSpace: 'nowrap',
+                                            zIndex: 10,
+                                        }}
+                                    >
+                                        <strong>{friend.name}</strong>
+                                    </div>
+                                )
                             )}
                         </div>
                     );
-
-                    return element;
                 })}
             </div>
         </Layout>
