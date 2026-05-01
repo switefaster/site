@@ -66,9 +66,13 @@ export default function Friends(): ReactNode {
         const width = container.clientWidth;
         const height = container.clientHeight;
 
+        // @ts-expect-error
+        Matter.Resolver._restingThresh = 0.1;
+
         // Create engine
-        const newEngine = Matter.Engine.create();
-        newEngine.gravity.y = 0; // No gravity for floating
+        const newEngine = Matter.Engine.create({
+            gravity: { y: 0 },
+        });
         // Create mouse constraint for dragging
         const mouseConstraint = Matter.MouseConstraint.create(newEngine, {
             mouse: Matter.Mouse.create(containerRef.current),
@@ -80,10 +84,26 @@ export default function Friends(): ReactNode {
         Matter.World.add(newEngine.world, mouseConstraint);
         // Create walls
         const walls = [
-            Matter.Bodies.rectangle(width / 2, -10, width, 20, { isStatic: true, restitution: 1 }),
-            Matter.Bodies.rectangle(width / 2, height + 10, width, 20, { isStatic: true, restitution: 1 }),
-            Matter.Bodies.rectangle(-10, height / 2, 20, height, { isStatic: true, restitution: 1 }),
-            Matter.Bodies.rectangle(width + 10, height / 2, 20, height, { isStatic: true, restitution: 1 }),
+            Matter.Bodies.rectangle(width / 2, -10, width, 20, {
+                isStatic: true, restitution: 1, friction: 0,
+                frictionAir: 0,
+                frictionStatic: 0,
+            }),
+            Matter.Bodies.rectangle(width / 2, height + 10, width, 20, {
+                isStatic: true, restitution: 1, friction: 0,
+                frictionAir: 0,
+                frictionStatic: 0,
+            }),
+            Matter.Bodies.rectangle(-10, height / 2, 20, height, {
+                isStatic: true, restitution: 1, friction: 0,
+                frictionAir: 0,
+                frictionStatic: 0,
+            }),
+            Matter.Bodies.rectangle(width + 10, height / 2, 20, height, {
+                isStatic: true, restitution: 1, friction: 0,
+                frictionAir: 0,
+                frictionStatic: 0,
+            }),
         ];
         Matter.World.add(newEngine.world, walls);
 
