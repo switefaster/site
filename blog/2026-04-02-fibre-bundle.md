@@ -116,8 +116,8 @@ $$
 我们把（光滑）截面的集合记作 $\Gamma(E)$。光滑向量丛的光滑截面 $\Gamma(E)$ 构成一个 $C^\infty(\mathcal{M})$-模
 :::tip[截面模]
 
-1. 数乘：对任意 $f\in C^\infty(\mathcal{M})$，$X\in\Gamma(E)$，$\mathrm{proj}_2\circ\varphi^{-1}((fX)(x))=f(x)\mathrm{proj}_2\circ\varphi^{-1}(X(x))$
-2. 加法：对任意 $X,Y\in\Gamma(E)$，$\mathrm{proj}_2\circ\varphi^{-1}((X+Y)(x))=\mathrm{proj}_2\circ\varphi^{-1}(X(x))+\mathrm{proj}_2\circ\varphi^{-1}(Y(x))$
+1. 数乘：对任意 $f\in C^\infty(\mathcal{M})$，$X\in\Gamma(E)$，$\mathrm{proj}_2\circ\varphi((fX)(x))=f(x)\mathrm{proj}_2\circ\varphi(X(x))$
+2. 加法：对任意 $X,Y\in\Gamma(E)$，$\mathrm{proj}_2\circ\varphi((X+Y)(x))=\mathrm{proj}_2\circ\varphi(X(x))+\mathrm{proj}_2\circ\varphi(Y(x))$
 
 即逐点对对应纤维做数乘与加法。
 :::
@@ -400,7 +400,7 @@ Levi-Civita 联络之所以自然是因为当（伪）黎曼流形被以保持�
 
 ## 鸣谢
 
-感谢 longlongzhu123 的纠错与讨论。
+感谢 longlongzhu123 和秦同学的纠错与讨论。
 
 [^1]: 作者在学习过程中也逐渐沾染使用黑话的习惯了，大抵这就是知识的诅咒罢
 [^2]: 拓扑空间可以粗略理解为允许定义连续等概念的空间。在本篇考虑的多数情况下，这些拓扑空间都至少局部同胚于 $\mathbb{R}^n$ 或 $\mathbb{C}^n$，因此不熟悉的读者可以以此为基础想象我们定义的对象。然而，需要注意 $\mathbb{R}^n$ 与 $\mathbb{C}^n$ 是具有极好属性的拓扑空间，不可轻易将其性质推广至一般的拓扑空间中
