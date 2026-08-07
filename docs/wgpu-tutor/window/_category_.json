@@ -1,0 +1,10 @@
+{
+  "label": "程序，窗口和循环",
+  "position": 3,
+  "collapsible": true,
+  "collapsed": true,
+  "link": {
+    "type": "doc",
+    "id": "wgpu-tutor/window/overview"
+  }
+}

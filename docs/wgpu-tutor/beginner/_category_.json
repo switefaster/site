@@ -1,0 +1,10 @@
+{
+  "label": "顶点，像素，着色器！",
+  "position": 5,
+  "collapsible": true,
+  "collapsed": true,
+  "link": {
+    "type": "doc",
+    "id": "wgpu-tutor/beginner/overview"
+  }
+}

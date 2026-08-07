@@ -1,25 +1,230 @@
-/**
- * CSS files with the .module.css suffix will be treated as CSS modules
- * and scoped locally.
- */
-
-.heroBanner {
-  padding: 4rem 0;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
+.home {
+  background: #030405;
 }
 
-@media screen and (max-width: 996px) {
-  .heroBanner {
-    padding: 2rem;
+@property --disk-flow {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 10deg;
+}
+
+@property --inner-disk-flow {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 210deg;
+}
+
+.heroBanner {
+  position: relative;
+  min-height: calc(100svh - var(--ifm-navbar-height));
+  overflow: hidden;
+  isolation: isolate;
+  color: #f2f1ed;
+}
+
+.cosmos,
+.starfield,
+.nebula,
+.vignette {
+  position: absolute;
+  inset: 0;
+}
+
+.cosmos {
+  z-index: -1;
+  overflow: hidden;
+  background: #030405;
+}
+
+.starfield {
+  width: 100%;
+  height: 100%;
+}
+
+.nebula {
+  background: radial-gradient(ellipse at 72% 50%, rgba(178, 68, 13, 0.09), transparent 44%);
+  filter: blur(24px);
+}
+
+.blackHoleSystem {
+  position: absolute;
+  top: 50%;
+  right: clamp(1rem, 7vw, 8rem);
+  width: clamp(340px, 41vw, 650px);
+  aspect-ratio: 1;
+  transform: translateY(-50%);
+}
+
+.accretionGlow,
+.accretionDisk,
+.accretionDiskInner,
+.photonRing,
+.eventHorizon {
+  position: absolute;
+  border-radius: 50%;
+}
+
+.accretionGlow {
+  inset: 16%;
+  background: radial-gradient(circle, transparent 34%, rgba(255, 157, 72, 0.14) 49%, transparent 68%);
+  filter: blur(20px);
+}
+
+.accretionDisk {
+  z-index: 2;
+  inset: 8%;
+  background: conic-gradient(
+    from var(--disk-flow),
+    rgba(87, 24, 2, 0.2),
+    #c84308 55deg,
+    #ffd59a 82deg,
+    #e75b13 112deg,
+    rgba(83, 22, 1, 0.25) 175deg,
+    #f08a32 230deg,
+    #fff0c8 255deg,
+    #b83205 288deg,
+    rgba(87, 24, 2, 0.2)
+  );
+  filter: blur(1.5px);
+  mask: radial-gradient(circle, transparent 0 36%, #000 43% 54%, transparent 64%);
+  transform: rotate(-12deg) scaleY(0.34);
+  animation: diskFlow 72s linear infinite;
+}
+
+.accretionDiskInner {
+  z-index: 3;
+  inset: 15%;
+  background: conic-gradient(
+    from var(--inner-disk-flow),
+    transparent,
+    rgba(255, 127, 31, 0.72) 70deg,
+    #fff2cf 110deg,
+    rgba(223, 70, 8, 0.55) 160deg,
+    transparent 235deg,
+    rgba(255, 211, 145, 0.72) 310deg,
+    transparent
+  );
+  filter: blur(2px);
+  mask: radial-gradient(circle, transparent 0 39%, #000 44% 51%, transparent 59%);
+  transform: rotate(-12deg) scaleY(0.3);
+  animation: innerDiskFlow 96s linear infinite reverse;
+}
+
+.photonRing {
+  z-index: 5;
+  inset: 30%;
+  border: 2px solid rgba(255, 226, 183, 0.8);
+  box-shadow:
+    0 0 8px rgba(255, 230, 190, 0.74),
+    0 0 16px rgba(230, 91, 15, 0.46);
+}
+
+.eventHorizon {
+  z-index: 4;
+  inset: 31%;
+  background: #000;
+  box-shadow: 0 0 28px 8px rgba(0, 0, 0, 0.94);
+}
+
+.vignette {
+  z-index: 6;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(2, 3, 5, 0.85) 0%, rgba(2, 3, 5, 0.18) 50%, transparent 74%),
+    radial-gradient(ellipse at center, transparent 48%, rgba(0, 0, 0, 0.4) 115%);
+}
+
+.heroContent {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  min-height: calc(100svh - var(--ifm-navbar-height));
+  padding-block: 5rem;
+}
+
+.titleGroup {
+  width: min(520px, 44vw);
+  text-align: left;
+}
+
+.heroTitle {
+  margin: 0;
+  color: #f2f1ed;
+  font-family: var(--ifm-heading-font-family);
+  font-size: clamp(3.25rem, 6vw, 6rem);
+  font-weight: 700;
+  letter-spacing: -0.045em;
+  line-height: 1;
+  text-shadow: 0 2px 24px rgba(0, 0, 0, 0.7);
+}
+
+.heroSubtitle {
+  margin: 1.25rem 0 0;
+  color: rgba(242, 241, 237, 0.7);
+  font-family: var(--ifm-font-family-base);
+  font-size: clamp(1rem, 1.3vw, 1.2rem);
+  font-weight: 400;
+  letter-spacing: 0.01em;
+}
+
+@keyframes diskFlow {
+  to {
+    --disk-flow: 370deg;
   }
 }
 
-.blackhole {
-  background-image: radial-gradient(circle at top, #000 35%, #733000 45%, #000 75%);
+@keyframes innerDiskFlow {
+  to {
+    --inner-disk-flow: 570deg;
+  }
 }
 
-[data-theme="light"] .blackholeFont {
-  color: white;
+@media screen and (max-width: 996px) {
+  .blackHoleSystem {
+    top: 34%;
+    right: auto;
+    left: 50%;
+    width: clamp(340px, 74vw, 520px);
+    transform: translate(-50%, -50%);
+  }
+
+  .heroContent {
+    align-items: flex-end;
+    justify-content: center;
+    padding-bottom: clamp(4rem, 10vh, 6rem);
+  }
+
+  .titleGroup {
+    width: 100%;
+    text-align: center;
+  }
+
+  .vignette {
+    background:
+      linear-gradient(0deg, rgba(2, 3, 5, 0.94) 0%, rgba(2, 3, 5, 0.18) 58%, transparent 82%),
+      radial-gradient(ellipse at center, transparent 45%, rgba(0, 0, 0, 0.38) 115%);
+  }
+}
+
+@media screen and (max-width: 520px) {
+  .heroContent {
+    padding-inline: 1.5rem;
+  }
+
+  .heroTitle {
+    font-size: clamp(3rem, 14vw, 4.6rem);
+  }
+
+  .blackHoleSystem {
+    top: 32%;
+    width: 106vw;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .accretionDisk,
+  .accretionDiskInner {
+    animation: none;
+  }
 }
