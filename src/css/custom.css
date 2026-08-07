@@ -46,3 +46,82 @@ mask:focus {
   display: block;
   text-align: right;
 }
+
+/* Geometry matches simpler-wick: square 0.4pt TikZ strokes over KaTeX atoms. */
+.katex.wick-katex {
+  position: relative;
+  display: inline-block;
+  overflow: visible;
+}
+
+.katex.wick-katex > [data-wick-overlay] {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+  color: inherit;
+  z-index: 1;
+}
+
+/* Theme SVG defaults set path strokes to none, so these must be CSS rules. */
+.katex.wick-katex > [data-wick-overlay] > path {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: var(--wick-line-width, 1px);
+  stroke-linecap: butt;
+  stroke-linejoin: miter;
+}
+
+.qft-figure {
+  --qft-figure-width: 24rem;
+  margin: 2rem auto;
+  padding: 1.25rem clamp(0.5rem, 2vw, 1.5rem) 0.9rem;
+  border-block: 1px solid var(--ifm-color-emphasis-200);
+  text-align: center;
+}
+
+.qft-figure img {
+  display: block;
+  width: min(100%, var(--qft-figure-width));
+  height: auto;
+  margin: 0 auto 0.75rem;
+}
+
+.qft-figure figcaption {
+  color: var(--ifm-color-emphasis-700);
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.025em;
+}
+
+.qft-figure--contour {
+  --qft-figure-width: 30rem;
+}
+
+.qft-figure-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem;
+  margin: 2rem 0;
+}
+
+.qft-figure-grid .qft-figure {
+  min-width: 0;
+  margin: 0;
+}
+
+.qft-figure--contour-featured {
+  margin-top: 1.25rem;
+}
+
+@media (max-width: 760px) {
+  .qft-figure-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+[data-theme='dark'] .qft-figure img {
+  filter: invert(1) hue-rotate(180deg);
+}

@@ -1,0 +1,15 @@
+\documentclass[tikz,border=8pt]{standalone}
+\usepackage[compat=1.1.0]{tikz-feynman}
+
+\begin{document}
+\begin{tikzpicture}
+  \begin{feynman}
+    \diagram [horizontal=a to c, layered layout] {
+      a [particle=$x$] -- c -- c -- b [particle=$y$]
+    };
+    \path (c) -- ++(90:0.5) coordinate (A);
+    \draw (A) circle(0.5);
+    \fill (c) circle (1.2pt);
+  \end{feynman}
+\end{tikzpicture}
+\end{document}

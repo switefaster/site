@@ -1,0 +1,30 @@
+\documentclass[tikz,border=5pt]{standalone}
+\usetikzlibrary{arrows.meta}
+
+\begin{document}
+\begin{tikzpicture}[
+  axis/.style={-{Stealth[length=4pt]}, line width=0.45pt},
+  contour/.style={line width=0.95pt},
+  contour arrow/.style={contour, -{Stealth[length=5pt, width=5pt]}}
+]
+  \path[use as bounding box] (-3.45, -1.85) rectangle (4.35, 1.85);
+  \draw[axis] (-3.2, 0) -- (3.25, 0) node[right] {$\mathrm{Re}\,p^0$};
+  \draw[axis] (0, -1.45) -- (0, 1.45) node[above] {$\mathrm{Im}\,p^0$};
+
+  \fill (-1.65, 0) circle (1.6pt) node[above=4pt] {$-E_{\mathbf p}$};
+  \fill (1.65, 0) circle (1.6pt) node[above=4pt] {$E_{\mathbf p}$};
+
+  \draw[contour] (-3.05, 0) -- (-2.15, 0);
+  \draw[contour] (-1.65, -0.55)
+    arc[start angle=270, end angle=360, x radius=0.5, y radius=0.55];
+  \draw[contour arrow] (-2.15, 0)
+    arc[start angle=180, end angle=270, x radius=0.5, y radius=0.55];
+  \draw[contour] (0, 0) -- (1.15, 0);
+  \draw[contour arrow] (-1.15, 0) -- (0, 0);
+  \draw[contour] (1.65, -0.55)
+    arc[start angle=270, end angle=360, x radius=0.5, y radius=0.55];
+  \draw[contour arrow] (1.15, 0)
+    arc[start angle=180, end angle=270, x radius=0.5, y radius=0.55];
+  \draw[contour] (2.15, 0) -- (3.05, 0);
+\end{tikzpicture}
+\end{document}

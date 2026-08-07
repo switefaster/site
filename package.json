@@ -4,8 +4,10 @@
   "private": true,
   "scripts": {
     "docusaurus": "docusaurus",
-    "start": "docusaurus start",
-    "build": "docusaurus build",
+    "start": "npm run diagrams:check && docusaurus start",
+    "build": "npm run diagrams:check && docusaurus build",
+    "diagrams": "node scripts/build-diagrams.mjs",
+    "diagrams:check": "node scripts/build-diagrams.mjs --check",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
     "clear": "docusaurus clear",

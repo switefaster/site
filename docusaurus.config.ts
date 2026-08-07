@@ -4,6 +4,22 @@ import type * as Preset from '@docusaurus/preset-classic';
 
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
+import rehypeWickContractions from './src/rehype/wickContractions';
+
+const qftKatexOptions = {
+  throwOnError: false,
+  strict: false,
+  trust: true,
+  macros: {
+    '\\bra': '\\left\\langle #1\\right|',
+    '\\ket': '\\left|#1\\right\\rangle',
+    '\\braket': '\\left\\langle #1\\middle|#2\\right\\rangle',
+    '\\comm': '\\left[#1,#2\\right]',
+    '\\crea': '#1^\\dagger_\\mathbf{#2}',
+    '\\annhil': '#1_\\mathbf{#2}',
+    '\\nomo': '\\mathopen{:}#1\\mathclose{:}',
+  },
+};
 
 const config: Config = {
   title: 'Naked Singularity',
@@ -33,6 +49,8 @@ const config: Config = {
 
   themes: ['@docusaurus/theme-mermaid'],
 
+  plugins: ['./src/plugins/wickContractions/index.ts'],
+
   presets: [
     [
       'classic',
@@ -40,7 +58,10 @@ const config: Config = {
         docs: {
           sidebarPath: './sidebars.ts',
           remarkPlugins: [remarkMath],
-          rehypePlugins: [rehypeKatex],
+          rehypePlugins: [
+            rehypeWickContractions,
+            [rehypeKatex, qftKatexOptions],
+          ],
         },
         blog: {
           showReadingTime: true,
