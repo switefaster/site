@@ -148,7 +148,7 @@ We converted back to the manifestly Lorentz invariant on-shell measure for conve
 
 This argument hints at how this commutator simplifies when $x-y$ is spacelike. When that is the case, there always exists an element $\Lambda$ in the proper, orthochronous Lorentz subgroup so that $y-x=\Lambda(x-y)$. Therefore, the subtraction in the referenced equation will cancel out pairwise, and thus the commutator is $0$. When $x-y$ is timelike, such an element fails to exist, and the commutator is generally non-zero. When $x-y$ is light-like, the result depends on whether $m>0$, and additional discussion is needed.[^1]
 
-The calculation guaranteed us that the basic causality is preserved in QFT: when conducting measurements on spacelike-separated points $x$ and $y$, the measurements will never interfere with each other (i.e., can be measured 鈥渟imultaneously").
+The calculation guaranteed us that the basic causality is preserved in QFT: when conducting measurements on spacelike-separated points $x$ and $y$, the measurements will never interfere with each other (i.e., can be measured “simultaneously").
 
 As we notice, the commutator of the field operator is a $c$-number. In fact, we will discuss this quantity a lot in the following sections, which is worth further discussion. To begin with, we rewrite the referenced equation in another form.
 
@@ -162,7 +162,7 @@ $$
 
 In the above, we defined the function $D(x-y)=\int \frac{d^3\mathbf p}{(2\pi)^3 2E_\mathbf p}e^{-ip\cdot(x-y)}$, and we wrote a four-integral following $\sim$, because $D(x-y)$ and $-D(y-x)$ are essentially the residues of the integrand with respect to $p^0$.
 
-The integral does not come from nowhere, and it is crucial to understand its spirit to convince yourself of the name 鈥減ropagator". The commutator of the field operator kind of measures how the measurement at $x$ affects the measurement at $y$. Physically, when such a measurement takes place, the 鈥渇ield value" at $x$ is suddenly fixed to a classical value $\phi(x)$. The consequence of the altered field state has to somehow propagate to $y$ at a finite speed due to our relativistic settings. In this way, although far from being rigorous, we are encouraged to think about how the Klein-Gordon field reacts to a disturbance. Classically, such a response is encoded in the sourced Klein-Gordon equation
+The integral does not come from nowhere, and it is crucial to understand its spirit to convince yourself of the name “propagator". The commutator of the field operator kind of measures how the measurement at $x$ affects the measurement at $y$. Physically, when such a measurement takes place, the “field value" at $x$ is suddenly fixed to a classical value $\phi(x)$. The consequence of the altered field state has to somehow propagate to $y$ at a finite speed due to our relativistic settings. In this way, although far from being rigorous, we are encouraged to think about how the Klein-Gordon field reacts to a disturbance. Classically, such a response is encoded in the sourced Klein-Gordon equation
 
 $$
 (\square^2+m^2)\phi=\rho(x)
@@ -194,7 +194,7 @@ $$
 \tilde{G}(p)=\frac{i}{p^2-m^2}
 $$
 
-Looks familiar? That's right, it exactly reproduces the four-integral appearing in the commutator. Our instincts are working, and the commutator is indeed somehow related to the response to a point disturbance, although we are using an unusual convention of a factor of $-i$. The appearance of $-i$, the names 鈥減ropagator", 鈥渃orrelator" and 鈥淕reen functions" will have more natural explains when we later introduce Feynman's path integral, rather than these mumbo-jumbos.
+Looks familiar? That's right, it exactly reproduces the four-integral appearing in the commutator. Our instincts are working, and the commutator is indeed somehow related to the response to a point disturbance, although we are using an unusual convention of a factor of $-i$. The appearance of $-i$, the names “propagator", “correlator" and “Green functions" will have more natural explains when we later introduce Feynman's path integral, rather than these mumbo-jumbos.
 
 However, we are still left with one question: what is the boundary condition? Indeed, the Green function we worked out seemingly solves the equation, but we know that such a PDE is only completely solved when a proper boundary condition is specified, and there are seemingly no free parameters left for us to choose. So how do we specify the boundary condition? The answer hides in the analytic structure of the propagator.
 
@@ -253,5 +253,4 @@ $$
 We introduced the **time ordering** in this expression. Similar to normal ordering, time ordering re-order the operators in it according to their time label, with the latest one to the leftmost. So when $x^0>y^0$, $T[\phi(x)\phi(y)]=\phi(x)\phi(y)$ and vice versa. You are recommended to check this expression yourself.
 
 [^1]: Please refer to [the appendix on the Lorentz group](./lorentz-group.md) if you find the Lorentz group particularly unfamiliar to you
-
 
