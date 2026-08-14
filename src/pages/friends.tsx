@@ -47,6 +47,12 @@ const friends: Friend[] = [
         description: 'Doodle',
         avatar: 'https://assets.doodlehuang.com/myface.png',
     },
+    {
+        name: '极光',
+        description: 'Aurora5090',
+        avatar: 'https://cos.aurora5090.com/astral_rider.png',
+        homepage: 'https://www.cnblogs.com/aurora5090',
+    }
 ];
 
 export default function Friends(): ReactNode {
