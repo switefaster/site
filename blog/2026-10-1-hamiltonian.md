@@ -424,7 +424,7 @@ $$
 
 一般来说没有通用的算法使得我们得以遍历和 $H$ 相容的守恒荷，而诺特定理提供了一个很好的寻找守恒荷的方式。只要存在某个哈密顿的群作用与 $H$ 相容，则它的动量映射 $\mu$ 自动给出了 $\dim G$ 个和 $H$ 相容的守恒荷。这些守恒荷还继承了群本身的结构：它们生成的哈密顿流正是群作用对应的无穷小变换。
 
-将守恒荷 $Q$ 理解成正则坐标的 $p$，对应 $q$ 的部分则实际上是 $Q$-相流的参数。$dQ$ 与 $X_Q$ 分别代表了这两个方向。
+将守恒荷 $Q$ 理解成正则坐标的 $p$，对应 $q$ 的部分则实际上是 $Q$-相流的参数。$dQ$ 与 $X_Q$ 分别代表了这两个方向。$Q$ 可以理解成对应的 $q$ 的变换生成元。
 
 ### 约化动力系统
 
@@ -446,11 +446,20 @@ $$
 
 若 $G$ 的作用与 $H$ 相容，则 $H$ 在 $\mathcal{M}//G$ 上仍然是良定义的。动力学被简化到少去 $G$ 提供的 $\dim G$ 个守恒量的问题上：由于垂直作用，$G$ 的守恒荷可以当作常数，用 $\mu^{-1}(0)$ 得到等值面；等值面上还存在 $G$ 的演化，由于 $H$ 的演化与 $G$ 的演化互不干扰，将 $G$-相流也进一步视作同一个点。正是这两个过程分别减去了 $\dim G$ 和 $\dim G_{\xi_0}$ 个自由度。对照上一节末尾，这两个操作分别在去除守恒荷的 $p$ 与 $q$。
 
-:::info[例子：角动量]
+::::info[例子：角动量]
 我们尝试计算 $T^*\mathbb{R}^3//SO(3)$，$SO(3)$ 的作用在上文例子中给出。由于 $0$ 的原像在这个例子奇异，我们不做计算。
 
-$\mu^{-1}(\mathbf{L}_0)=\{(\mathbf{x},\mathbf{p});\mathbf{x}\times\mathbf{p}=\mathbf{L}_0\}=\{(\mathbf{x},\mathbf{L}_0\times\mathbf{x}+\lambda\mathbf{x});\mathbf{x}\in\mathbf{L}_0^\perp,\lambda\in\mathbb{R}\}$，$SO(3)_{\mathbf{L}_0}=SO(2)$。
+:::note
+由于 $T^*\mathbb{R}^3$ 和 $\omega$ 的良好性质，我们可以想象 $\mathbf{x}$ 和 $\mathbf{p}$ 都是同一个 $\mathbb{R}^3$ 中的向量。在计算时 $\hat{\omega}$ 需要意识到它们其实分别是六维空间的一部分。
 :::
+
+按照定义 $\mu^{-1}(\mathbf{L}_0)=\{(\mathbf{x},\mathbf{p});\mathbf{x}\times\mathbf{p}=\mathbf{L}_0\}$，$SO(3)_{\mathbf{L}_0}=SO(2)$。可见 $\mu^{-1}(\mathbf{L}_0)/SO(2)$ 是过原点垂直于 $\mathbf{L}_0$ 的平面中满足 $xp\sin\left<\mathbf{x},\mathbf{p}\right>=L_0$ 的两个向量，模去平面内的旋转，换言之仅保留相对关系。
+
+我们可以选择 $x$，$p$ 或 $\cos\left<\mathbf{x},\mathbf{p}\right>\equiv\cos\theta$ 中任意两个参数来描述剩余的自由度。为了方便我们计算 $\hat{\omega}$，我们选取一个平面中的正交基 $\{\mathbf{e}_1,\mathbf{e}_2\}$，并选取代表元 $\mathbf{x}=x\mathbf{e}_1$，则 $\mathbf{p}=p\cos\theta\mathbf{e}_1+p\sin\theta\mathbf{e}_2$。记平面到 $T^*\mathbb{R}^3$ 的嵌入映射为 $i$，则
+$$
+i^*\omega(\partial_x,\partial_p)=\omega(i_*\partial_x,i_*\partial_p)=\omega(e_1^i\partial_{x^i},e_1^i\cos\theta\partial_{p^i}+e_2^i\sin\theta\partial_{p^i})=e_1^2\cos\theta+\mathbf{e}_1\cdot\mathbf{e}_2\sin\theta=\cos\theta
+$$
+::::
 
 [^1]: 这里的泊松括号取朗道《力学》中的定义。
 [^2]: 敏锐的读者已经注意到，我们在量子力学中对这种操作驾轻就熟。
