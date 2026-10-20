@@ -457,8 +457,19 @@ $$
 
 我们可以选择 $x$，$p$ 或 $\cos\left<\mathbf{x},\mathbf{p}\right>\equiv\cos\theta$ 中任意两个参数来描述剩余的自由度。为了方便我们计算 $\hat{\omega}$，我们选取一个平面中的正交基 $\{\mathbf{e}_1,\mathbf{e}_2\}$，并选取代表元 $\mathbf{x}=x\mathbf{e}_1$，则 $\mathbf{p}=p\cos\theta\mathbf{e}_1+p\sin\theta\mathbf{e}_2$。记平面到 $T^*\mathbb{R}^3$ 的嵌入映射为 $i$，则
 $$
-i^*\omega(\partial_x,\partial_p)=\omega(i_*\partial_x,i_*\partial_p)=\omega(e_1^i\partial_{x^i},e_1^i\cos\theta\partial_{p^i}+e_2^i\sin\theta\partial_{p^i})=e_1^2\cos\theta+\mathbf{e}_1\cdot\mathbf{e}_2\sin\theta=\cos\theta
+\begin{gathered}
+i^*\omega(\partial_x,\partial_p)=\omega(i_*\partial_x,i_*\partial_p)=\omega(e_1^i\partial_{x^i},e_1^i\cos\theta\partial_{p^i}+e_2^i\sin\theta\partial_{p^i})=e_1^2\cos\theta+\mathbf{e}_1\cdot\mathbf{e}_2\sin\theta=\cos\theta\\
+i^*\omega(\partial_x,\partial_\theta)=\omega(e_1^i\partial_{x^i},-e_1^ip\sin\theta\partial_{p^i}+e_2^ip\cos\theta\partial_{p^i})=-p\sin\theta
+\end{gathered}
 $$
+这二者取值为 $0$ 的情况互补，因此 $\hat{\omega}$ 的退化仅是坐标选择导致的表观问题，$\hat{\omega}$ 的确是一个辛形式。
+
+我们可以给 $\hat{\omega}$ 构造正则坐标。记 $r=x$，$p_r=p\cos\theta$，则可以计算得到 $\hat{\omega}(\partial_r,\partial_{p_r})=1$，即 $\hat{\omega}=dr\wedge dp_r$。
+:::note[练习]
+证明上述结论。
+:::
+
+我们对这个结论并不陌生：总角动量守恒的力学系统可以约化到平面内，而平面内角动量守恒的运动可以进一步约化到仅剩径向运动。我们只是用花哨的语言重新得到了这一事实。
 ::::
 
 [^1]: 这里的泊松括号取朗道《力学》中的定义。
