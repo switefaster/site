@@ -450,27 +450,71 @@ $$
 我们尝试计算 $T^*\mathbb{R}^3//SO(3)$，$SO(3)$ 的作用在上文例子中给出。由于 $0$ 的原像在这个例子奇异，我们不做计算。
 
 :::note
-由于 $T^*\mathbb{R}^3$ 和 $\omega$ 的良好性质，我们可以想象 $\mathbf{x}$ 和 $\mathbf{p}$ 都是同一个 $\mathbb{R}^3$ 中的向量。在计算时 $\hat{\omega}$ 需要意识到它们其实分别是六维空间的一部分。
+由于 $T^*\mathbb{R}^3$ 和 $\omega$ 的良好性质，我们可以想象 $\mathbf{x}$ 和 $\mathbf{p}$ 都是同一个 $\mathbb{R}^3$ 中的向量。在计算 $\hat{\omega}$ 时需要意识到它们其实分别是六维空间的一部分。
 :::
 
 按照定义 $\mu^{-1}(\mathbf{L}_0)=\{(\mathbf{x},\mathbf{p});\mathbf{x}\times\mathbf{p}=\mathbf{L}_0\}$，$SO(3)_{\mathbf{L}_0}=SO(2)$。可见 $\mu^{-1}(\mathbf{L}_0)/SO(2)$ 是过原点垂直于 $\mathbf{L}_0$ 的平面中满足 $xp\sin\left<\mathbf{x},\mathbf{p}\right>=L_0$ 的两个向量，模去平面内的旋转，换言之仅保留相对关系。
 
-我们可以选择 $x$，$p$ 或 $\cos\left<\mathbf{x},\mathbf{p}\right>\equiv\cos\theta$ 中任意两个参数来描述剩余的自由度。为了方便我们计算 $\hat{\omega}$，我们选取一个平面中的正交基 $\{\mathbf{e}_1,\mathbf{e}_2\}$，并选取代表元 $\mathbf{x}=x\mathbf{e}_1$，则 $\mathbf{p}=p\cos\theta\mathbf{e}_1+p\sin\theta\mathbf{e}_2$。记平面到 $T^*\mathbb{R}^3$ 的嵌入映射为 $i$，则
+我们可以选择 $x$，$p$ 或 $\cos\left<\mathbf{x},\mathbf{p}\right>\equiv\cos\theta$ 中任意两个参数来描述剩余的自由度。为了方便我们计算 $\hat{\omega}$，我们选取一个平面中的单位正交基 $\{\mathbf{e}_1,\mathbf{e}_2\}$，并选取代表元 $\mathbf{x}=x\mathbf{e}_1$，则 $\mathbf{p}=p\cos\theta\mathbf{e}_1+p\sin\theta\mathbf{e}_2$。记平面到 $T^*\mathbb{R}^3$ 的嵌入映射为 $i$，则
 $$
-\begin{gathered}
-i^*\omega(\partial_x,\partial_p)=\omega(i_*\partial_x,i_*\partial_p)=\omega(e_1^i\partial_{x^i},e_1^i\cos\theta\partial_{p^i}+e_2^i\sin\theta\partial_{p^i})=e_1^2\cos\theta+\mathbf{e}_1\cdot\mathbf{e}_2\sin\theta=\cos\theta\\
-i^*\omega(\partial_x,\partial_\theta)=\omega(e_1^i\partial_{x^i},-e_1^ip\sin\theta\partial_{p^i}+e_2^ip\cos\theta\partial_{p^i})=-p\sin\theta
-\end{gathered}
+i^*\omega(\partial_x,\partial_p)=\omega(i_*\partial_x,i_*\partial_p)=\omega(e_1^i\partial_{x^i},e_1^i\cos\theta\partial_{p^i}+e_1^i\frac{\sin^2\theta}{\cos\theta}\partial_{p^i})=e_1^2(\cos\theta+\frac{\sin^2\theta}{\cos\theta})=\frac{1}{\cos\theta}
 $$
-这二者取值为 $0$ 的情况互补，因此 $\hat{\omega}$ 的退化仅是坐标选择导致的表观问题，$\hat{\omega}$ 的确是一个辛形式。
+看上去存在奇点，但实际上仅是坐标选择导致的，$\hat{\omega}$ 的确是一个辛形式。我们可以通过直接构造正则坐标证明这一点。
 
-我们可以给 $\hat{\omega}$ 构造正则坐标。记 $r=x$，$p_r=p\cos\theta$，则可以计算得到 $\hat{\omega}(\partial_r,\partial_{p_r})=1$，即 $\hat{\omega}=dr\wedge dp_r$。
+记 $r=x$，$p_r=p\cos\theta$，则可以计算得到 $\hat{\omega}(\partial_r,\partial_{p_r})=1$，即 $\hat{\omega}=dr\wedge dp_r$。
 :::note[练习]
 证明上述结论。
 :::
 
 我们对这个结论并不陌生：总角动量守恒的力学系统可以约化到平面内，而平面内角动量守恒的运动可以进一步约化到仅剩径向运动。我们只是用花哨的语言重新得到了这一事实。
 ::::
+
+一般意义的辛约化正是利用守恒荷化简物理系统的过程。
+
+## 拉格朗日力学
+
+我们更熟悉拉格朗日力学中的表述，我们接下来探究这和前文构造的关联。为此，我们先简单回顾一下拉格朗日力学。
+
+### 泛函
+
+与哈密顿力学不同，不严格地说，拉格朗日力学实际上定义在广义坐标的切丛上。这是因为不含时拉格朗日量
+$$
+L=L(q^i,\dot{q}^i)
+$$
+可以理解成切丛 $T\mathcal{C}$ 上的函数，$q^i$ 和 $\dot{q}^i$ 分别对应位置和切向量。
+:::note[高阶导]
+拉格朗日量可以依赖高阶导数，此时我们认为它是所谓射流丛上的函数。最高包含 $k$-阶导数的射流丛称为 $k$-射流丛。
+
+射流丛在下一篇文章中讨论，因此我们在此略过。
+:::
+
+然而在拉格朗日力学中真正重要的量不是拉格朗日量本身，而是**作用量**
+$$
+S[q^i]=\int L(q^i(t),\dot{q}^i(t))dt
+$$
+因而涉及了时间轴，或者在场论中，更多的空间坐标。这使我们不得不引入另外的底流形 $\mathcal{M}$。我们可以将 $T\mathcal{C}$ 当作 $\mathcal{M}$ 上的纤维。在这样考虑之后，$S$ 就可以理解成这个向量丛的全空间 $E$ 的截面的函数：
+$$
+S:\Gamma(E)\to\mathbb{R}
+$$
+该表达中我们省略了边界，但这是重要的，我们稍后再讨论。表面上将 $S$ 当作截出的 $T\mathcal{C}$ 的函数似乎有些不妥，因为 $\dot{q}(t)$ 实际上是被 $q(t)$ 决定，而不是自由的。然而从变分的角度上看，将二者视作独立变量是有益的，而我们可以通过莱布尼兹律填补其中的空缺。尽管 $T\mathcal{C}$ 在全局上可能有非平凡的拓扑，但在局部上都可以加和乘，因此至少可以局部地理解成向量空间，$E$ 几乎是一个向量丛。
+
+接下来考虑变分；不过在形式化定义变分之前，我们不妨建立一些直觉：比起上来就处理函数空间，为何不从有限维向量做起呢？[^10]
+
+为了方便思考，我们先忽略导数项，考虑一个只有一个广义坐标的有限维“作用量”
+$$
+S(\mathbf{q})=\sum_{i=1}^n L(\mathbf{q}^i)
+$$
+我们需要让 $S$ 取极值，于是求 $S$ 的微分
+$$
+dS=\sum_{j=1}^n\sum_{i=1}^n\frac{\partial L(q^i)}{\partial q^j}dq^j=\sum_{j=1}^n\frac{\partial L(q^j)}{\partial q^j}dq^j
+$$
+$dS=0$ 的条件等价于 $\frac{\partial L}{\partial q^j}=0$。是否觉得眼熟？这就是变分的过程！因此，变分并不是什么新引入的数学对象，而是我们熟悉的方向导数。这也是有限维给我们的提示：$\delta q$ 应该被理解成余切向量。
+
+接下来回归正常变分，通过莱布尼兹律我们总可以写出
+$$
+\delta S=\int \left[E\delta q+\frac{d}{dt}\Theta(q,\delta q)\right]dt
+$$
+其中 $E$ 为运动方程，$\Theta$ 是对 $\delta q$ 线性的一个函数。
 
 [^1]: 这里的泊松括号取朗道《力学》中的定义。
 [^2]: 敏锐的读者已经注意到，我们在量子力学中对这种操作驾轻就熟。
@@ -481,3 +525,4 @@ $$
 [^7]: 对此感到困惑的读者可以了解有辛形式的线性代数，因为如上论断完全基于 $\omega^{-1}$ 在余切空间上的性质。
 [^8]: 当然也可以认为是对应 $q$，只是我们习惯性将 $p$ 与对称性的生成元联系起来。
 [^9]: 不如说，整个哈密顿力学的构造都和李群十分相似。
+[^10]: 这是一个非常重要的想法，例如路径积分等方法都可以从有限维的计算中获得直觉。
